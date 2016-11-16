@@ -2200,12 +2200,12 @@ select option {
     /*//msg.png*/
 }
  .addlist_qjt {
-    background: url(../images/ScApp/nav/Apps_02.png) center no-repeat;
+    background: url(../images/ScApp/nav/qjt.png) center no-repeat;
     background-size: 26px 26px;
     border-right: 1px solid #eee;
 }
  .addlist_xgt {
-    background: url(../images/ScApp/nav/Apps_01.png) center no-repeat;
+    background: url(../images/ScApp/nav/xgt.png) center no-repeat;
     background-size: 26px 26px;
     border-right: 1px solid #eee;
 }

@@ -19,8 +19,9 @@ function getActivityList() {
 		sfkh: selecttype,
 		nowindex:  starIndex
 	};
+	//alert(JSON.stringify(data))
 	common.postApi('GetScore', data, function(response) {
-		//alert(JSON.stringify(response))
+		
 		dataArray = eval(response.data);
 		
 		for (var i = 0; i < dataArray.length; i++) {
@@ -49,6 +50,7 @@ function getActivityList() {
 		}
 		//alert(starIndex)
 		starIndex = starIndex + 10;
+		
 		mui('#pullrefresh').pullRefresh().endPullupToRefresh((dataArray.length < 10)); //参数为true代表没有更多数据了。
 //		if (selecttype == "N") {
 //
