@@ -7,7 +7,7 @@ mui.plusReady(function() {
 						ver: wgtinfoVersion
 					}, function(response) {
 						 var data=eval(response.data);
-						//alert(data)
+						//alert(JSON.stringify(data))
 						if(data) {
 							var updateUrl = data[0].updateUrl;
 							//获取到更新地址  
