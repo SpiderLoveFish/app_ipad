@@ -3,9 +3,12 @@ mui.plusReady(function() {
 	var wgtinfoVersion = null;
 		plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo) {
 					wgtinfoVersion = wgtinfo.version;
-					common.postglobalUrlApi('GetAppVersion', {
-						ver: wgtinfoVersion
+					//alert(wgtinfoVersion)
+					common.postglobalUrlApi('GetAppVersions', {
+						ver: wgtinfoVersion,
+						type:'ipad'
 					}, function(response) {
+							//alert(response)
 						 var data=eval(response.data);
 						//alert(JSON.stringify(data))
 						if(data) {
