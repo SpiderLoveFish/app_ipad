@@ -9,8 +9,8 @@ mui.plusReady(function() {
 						type:'ipad'
 					}, function(response) {
 							//alert(response)
-						 var data=eval(response.data);
-						//alert(JSON.stringify(data))
+						// var data=eval(response.data);
+						alert(JSON.stringify(data))
 						if(data) {
 							var updateUrl = data[0].updateUrl;
 							//获取到更新地址  

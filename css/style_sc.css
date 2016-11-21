@@ -2168,7 +2168,7 @@ select option {
 	box-shadow: none;
 }
 .address_list .addlist_stafflist {
-    height: 56px;
+    height: 66px;
     padding: 10px 25px 10px 15px;
 }
 .address_list .addlist_stafflist img {
@@ -2193,25 +2193,25 @@ select option {
 .address_list .addlist_makemass,.addlist_makecall,.addlist_qjt,.addlist_xgt{
     display: inline-block;
     float: right;
-    height: 36px;
-    width: 44px;
+    height: 46px;
+    width: 54px;
     background: url(../images/ScApp/nav/appsWj.png) center no-repeat;
-    background-size: 26px 26px;
+    background-size: 36px 36px;
     /*//msg.png*/
 }
  .addlist_qjt {
     background: url(../images/ScApp/nav/qjt.png) center no-repeat;
-    background-size: 26px 26px;
+    background-size: 36px 36px;
     border-right: 1px solid #eee;
 }
  .addlist_xgt {
     background: url(../images/ScApp/nav/xgt.png) center no-repeat;
-    background-size: 26px 26px;
+    background-size: 36px 36px;
     border-right: 1px solid #eee;
 }
 .address_list .addlist_makecall {
     background: url(../images/ScApp/nav/call.png) center no-repeat;
-    background-size: 26px 26px;
+    background-size: 36px 36px;
     border-right: 1px solid #eee;
 }
 .address_list .mui-table-view-cell:after{
