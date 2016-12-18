@@ -10,15 +10,18 @@ var aniHide = "auto"; //fade-out,zoom-in,slide-out-right,pop-out
 var aniSecond = "250";
 var CommonTop = '101px';
 //--开始权限全局变量
-var r_addfollow = 2;
-var r_birthday = 5;
-var r_material = 7;
+var r_addfollow = 2;//跟进发送
+var r_birthday = 5;//生日
+var r_material = 7;//材料
 var r_points = 6; //积分
-var r_myys = 8;
-var r_myys_sh = 9;
-var r_myys_qr = 10;
-var r_cor_news = 3;
-var r_send_cor_news = 4;
+var r_myys = 8;//我的预算
+var r_myys_sh = 9;//预算审核
+var r_myys_qr = 10;//预算确定
+var r_cor_news = 3;//企业新闻
+var r_send_cor_news = 4;//发送新闻
+var r_view_gj = 11;//跟进详细
+var r_jdal = 12;//经典案例
+var r_add_custmoer = 12;//增加客户
 //--结束权限全局变量
 
 (function(mui, common) {
@@ -31,9 +34,9 @@ var r_send_cor_news = 4;
 			UploadImageUrl = getServerUrls('$ServerUrls').UploadImageUrl;
 		}
 		//初始化首页信息
-//		common.initMessage = function() {
-//				plus.webview.getWebviewById('view/nav/message.html').evalJS('getData();');
-//			}
+		common.initMessage = function() {
+				plus.webview.getWebviewById('view/nav/message.html').evalJS('getData();');
+			}
 			//初始化快捷键信息
 		common.initshowButton = function() {
 				plus.webview.getWebviewById('view/nav/message.html').evalJS('showButton();');
@@ -279,7 +282,8 @@ var r_send_cor_news = 4;
 
 	common.Verifauthority = function(rightid, callback) {
 		//common.showWaiting();
-		if(getUserInfo().ID=='1'){
+		if(getUserInfo().ID=='1'||getUserInfo().Level=='99')//管理员，或者申请的试用帐号
+		{
 		callback(true);
 		return;
 		}
@@ -922,6 +926,48 @@ dayToStr = function(d) {
 noneToStr = function(d) {
 	return(d.getFullYear() + ultZeroize(d.getMonth() + 1) + ultZeroize(d.getDate()));
 };
+	//---------------------------------------------------  
+	// 日期格式化  
+	// 格式 YYYY/yyyy/YY/yy 表示年份  
+	// MM/M 月份  
+	// W/w 星期  
+	// dd/DD/d/D 日期  
+	// hh/HH/h/H 时间  
+	// mm/m 分钟  
+	// ss/SS/s/S 秒  
+	//alert(DateFormat('YYYY-MM-dd hh:mm 星期w'));
+	//---------------------------------------------------  
+	function DateFormat(mDate, formatStr) {
+
+
+		var myDate = new Date(mDate); //正确
+
+		//alert(date.getFullYear());
+		var str = formatStr;
+		var Week = ['日', '一', '二', '三', '四', '五', '六'];
+
+		str = str.replace(/yyyy|YYYY/, myDate.getFullYear());
+		str = str.replace(/yy|YY/, (myDate.getYear() % 100) > 9 ? (myDate.getYear() % 100).toString() : '0' + (myDate.getYear() % 100));
+
+		str = str.replace(/MM/, parseInt(myDate.getMonth()) + 1 > 9 ? (parseInt(myDate.getMonth()) + 1).toString() : '0' + (parseInt(myDate.getMonth()) + 1));
+		str = str.replace(/M/g, parseInt(myDate.getMonth()) + 1);
+
+		str = str.replace(/w|W/g, Week[myDate.getDay()]);
+
+		str = str.replace(/dd|DD/, myDate.getDate() > 9 ? myDate.getDate().toString() : '0' + myDate.getDate());
+		str = str.replace(/d|D/g, myDate.getDate());
+
+		str = str.replace(/hh|HH/, myDate.getHours() > 9 ? myDate.getHours().toString() : '0' + myDate.getHours());
+		str = str.replace(/h|H/g, myDate.getHours());
+		str = str.replace(/mm/, myDate.getMinutes() > 9 ? myDate.getMinutes().toString() : '0' + myDate.getMinutes());
+		str = str.replace(/m/g, myDate.getMinutes());
+
+		str = str.replace(/ss|SS/, myDate.getSeconds() > 9 ? myDate.getSeconds().toString() : '0' + myDate.getSeconds());
+		str = str.replace(/s|S/g, myDate.getSeconds());
+
+		return str;
+	}
+
 
 ultZeroize = function(v, l) {
 	var z = "";

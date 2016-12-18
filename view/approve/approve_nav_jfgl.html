@@ -8,13 +8,13 @@
 		<link rel="stylesheet" href="../../css/list.css" />
 		<link rel="stylesheet" href="../../css/style_sc.css" />
 		<link rel="stylesheet" href="../../css/reset.css" />
-		<title>审批</title>
+		<title>积分管理</title>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">单据管理</h1>
+			<h1 class="mui-title">积分管理</h1>
 		</header>
 		<div class="mui-content">
 			<div class="container">
@@ -39,18 +39,18 @@
 					</div>-->
 					<div class="approve_module">
 						<a>
-							<div id="gongshi" class="approve_list approve_list4">
-								<p>我的预算</p>
+							<div id="jfsc" class="approve_list approve_list4">
+								<p>积分商场</p>
 							</div>
 						</a>
 						<a>
-							<div id="ysapr" class="approve_list approve_list3">
-								<p>预算审核</p>
+							<div id="khjf" class="approve_list approve_list4">
+								<p>客户积分</p>
 							</div>
 						</a>
 						<a> 
-							<div id="ysqr" class="approve_list approve_list3">
-								<p>预算确认</p>
+							<div id="ygjf" class="approve_list approve_list4">
+								<p>员工积分</p>
 							</div>
 						</a>
 						<!--<a>
@@ -71,27 +71,7 @@
 		<script type="text/javascript" src="../../js/controllers/common.js"></script>
 		<script type="text/javascript" src="../../js/common/zepto.min.js"></script>
 		<script type="text/javascript">
-			//动态设置高度
-			var width = document.getElementById("gongshi").offsetWidth;
-			var list = document.getElementsByClassName('approve_module')[0].getElementsByClassName('approve_list');
-			for (var i = 0; i < list.length; i++) {
-				var obj = list[i];
-				obj.style.height = width + 'px';
-			}
-			var data = {
-				ID: "",
-				type: 'getMyApproveList_No'
-			};
-			common.postApi('GetApprove', data, function(response) {
-				var s = eval(response.data);
-				var dataArray = s[0];
-				if (dataArray.length > 0) {
-					$('.posi_hint').text(dataArray.length); //数字角标
-					$('.posi_hint').show();
-				} else {
-					$('.posi_hint').hide();
-				}
-			}, 'json');
+			 
 			//该我审批
 //			common.click('gai', function() {
 //				var webview = common.getTemplate('page2', 'list/list_waitforme.html'); //第二层webview
@@ -105,26 +85,29 @@
 //				var webview = common.getTemplate('page2', 'list/list_launched.html'); //第二层webview
 //			});
 //			//审核
-			common.click('ysapr', function() {
-				 common.Verifauthority(r_myys_sh, function(result) { //我的预算		
+			common.click('jfsc', function() {
+				common.Verifauthority(r_points, function(result) { //积分
 				 	if(result)
-			var webview = common.getTemplate('page2', 'projecthour/yslist.html?selecttype=ys_dsh'); //第二层webview
-					});//var webview = common.getTemplate('page2', 'projecthour/yslist.html'); //第二层webview
+				 		var webview = common.getTemplate('jfsc', '../activity/jfsc.html'); //第二层webview			
+					//common.loadUrl('../activity/activity_list.html');
+			});
+				 //var webview = common.getTemplate('page2', 'projecthour/yslist.html'); //第二层webview
 			});
 			//确认
-			common.click('ysqr', function() {
-			 common.Verifauthority(r_myys_qr, function(result) { //我的预算		
+			common.click('ygjf', function() {
+				common.Verifauthority(r_points, function(result) { //积分
 				 	if(result)
-			var webview = common.getTemplate('page2', 'projecthour/yslist.html?selecttype=ys_dqr'); //第二层webview
-					});//
-				//var webview = common.getTemplate('page2', 'projecthour/yslist.html'); //第二层webview
+				 		var webview = common.getTemplate('ygjf', '../activity/activity_list.html?sfkh=N'); //第二层webview			
+					//common.loadUrl('../activity/activity_list.html');
 			});
-//			//我的预算
-			common.click('gongshi', function() {
-			 common.Verifauthority(r_myys, function(result) { //我的预算		
+			});
+			//客户积分
+			common.click('khjf', function() {
+				common.Verifauthority(r_points, function(result) { //积分
 				 	if(result)
-			var webview = common.getTemplate('page2', 'projecthour/yslist.html'); //第二层webview
-					});//
+				 		var webview = common.getTemplate('khjf', '../activity/activity_list.html?sfkh=Y'); //第二层webview			
+					//common.loadUrl('../activity/activity_list.html');
+			});
 				
 			});
 //			//通用

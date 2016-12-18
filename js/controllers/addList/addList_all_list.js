@@ -7,8 +7,8 @@ var header = document.querySelector('header.mui-bar');
 var news_hint = document.getElementsByClassName("news_botton_hint");
 var headLetter;
 var temHead = '<li data-group="@headLetter" class="mui-table-view-divider mui-indexed-list-group">@headLetter</li>';
-//数据体<div class="addlist_makecall" data-mobile="@Mobilecall"></div>
-var temBody = '<li data-tags="@Header" class="mui-table-view-cell mui-indexed-list-item addlist_stafflist"><div data-value="@id" class="divClick"><img src="@titleimg"><div class="addlist_staffname"><div class="addlist_name">@UserName</div><span class="addlist_post">@DepartmentName</span></div></div><div class="addlist_makemass"  data-mobile="@Mobilemsg"></div><div class="addlist_qjt"  data-qjt="@qjt"></div><div class="addlist_xgt"  data-xgt="@xgt"></div></li>';
+//数据体
+var temBody = '<li data-tags="@Header" class="mui-table-view-cell mui-indexed-list-item addlist_stafflist"><div data-value="@id" class="divClick"><img src="@titleimg"><div class="addlist_staffname"><div class="addlist_name">@UserName</div><span class="addlist_post">@DepartmentName</span></div></div><div class="addlist_makecall" data-mobile="@Mobilecall"></div><div class="addlist_makemass"  data-mobile="@Mobilemsg"></div></li>';
 //获取数据
 //还可以加入收藏优先，限制收藏数量比如100个
 function GetUserList(selectType, departmentId, searchkey) {
@@ -34,7 +34,8 @@ function GetUserList(selectType, departmentId, searchkey) {
 		keyword: key,
 		ID: uID,
 		url: ApiUrl,
-		topnumber: 50,
+		index:50,
+		//topnumber: 50,
 		searchkey: sk
 	};
 	//alert(JSON.stringify(data))
@@ -43,29 +44,29 @@ function GetUserList(selectType, departmentId, searchkey) {
 		//未联网
 		 selectTable(db);
 	} else {
-		common.postApi("GetCustomerList", data, function(response) {
+		common.postApi("GetCustomerList_Page", data, function(response) {
 			dataArray = eval(response.data);
-			//alert(JSON.stringify(response))
+			//alert(JSON.stringify(dataArray[0]))
 			createTable(db);
 			deleteTable(db);
 			news_hint[0].style.display = "block";
- 				news_hint[0].innerText = dataArray.length;
-			for(var i = 0; i < dataArray.length; i++) {
+ 				news_hint[0].innerText = dataArray[1].Total;
+			for(var i = 0; i < dataArray[0].length; i++) {
 				var temp; //临时变量
-				var obj = dataArray[i];
-				
+				var obj = dataArray[0][i];
+				var head=obj.header;
 				//创建websql 表
-				if(headLetter != obj.header) { //没有此头字母,插入头
-					headLetter = obj.header;
+				if(headLetter != head) { //没有此头字母,插入头
+					headLetter = head;
 					//列表右侧字母列表
-					document.getElementById("headerList").innerHTML += "<a>" + obj.header + "</a>";
+					document.getElementById("headerList").innerHTML += "<a>" + head + "</a>";
 					//主列表字母头
 					temp = temHead;
-					document.getElementById("UserList").innerHTML += temp.replace("@headLetter", obj.header).replace("@headLetter", obj.header);
+					document.getElementById("UserList").innerHTML += temp.replace("@headLetter", head).replace("@headLetter", head);
 				}
 				var avatar = obj.Avatar;
 				if(avatar == '' || avatar == null || avatar == 'null')
-					avatar = '../../images/ScApp/icon/deadline.png';
+					avatar = '../../images/ScApp/general/headimg/headimg_02.png';
 				temp = temBody;
 				temp = temp.replace("@id", obj.id);
 				temp = temp.replace("@Header", obj.header + obj.Customer + obj.tel + obj.address);
@@ -74,8 +75,6 @@ function GetUserList(selectType, departmentId, searchkey) {
 				temp = temp.replace("@titleimg", avatar);
 				temp = temp.replace("@UserName", obj.Customer);
 				temp = temp.replace("@DepartmentName", obj.address);
-				temp = temp.replace("@qjt", obj.id+';'+obj.tel);
-				temp = temp.replace("@xgt",  obj.id+';'+obj.tel);
 				document.getElementById("UserList").innerHTML += temp;
 				//插入表
 				insertTable(db, obj.header, obj.id, obj.tel, obj.id, obj.Customer, obj.address)
@@ -142,8 +141,6 @@ function selectTable(db) {
 				temp = temp.replace("@titleimg", obj.Avatar);
 				temp = temp.replace("@UserName", obj.Customer);
 				temp = temp.replace("@DepartmentName", obj.address);
-				temp = temp.replace("@qjt", obj.id+';'+obj.tel);
-				temp = temp.replace("@xgt",  obj.id+';'+obj.tel);
 				document.getElementById("UserList").innerHTML += temp;
 				list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
 				window.indexedList = new mui.IndexedList(list);
@@ -175,8 +172,6 @@ mui.plusReady(function() {
 	});
 	//监听详情页面请求关闭
 	window.addEventListener('reloadfun', function() {
-		document.getElementById("list").innerHTML = "";
-		statrCount = 0;
 		GetUserList();
 	});
 	/*
@@ -249,34 +244,12 @@ mui.plusReady(function() {
 		openMenu();
 	});
  
-//	mui('#UserList').on('tap', '.addlist_makecall', function(e) {
-//		//移除焦点,为了隐藏软键盘
-//		//search.blur();//
-//		var href = this.getAttribute('data-mobile');
-//		plus.device.dial(href);
-//
-//	});
-//全景图
-	mui('#UserList').on('tap', '.addlist_qjt', function(e) {
+	mui('#UserList').on('tap', '.addlist_makecall', function(e) {
 		//移除焦点,为了隐藏软键盘
 		//search.blur();//
-		var a = this.getAttribute('data-qjt');
-		var id=a.split(';')[0];
-		var tel=a.split(';')[1];
-			var template = common.getTemplate('qjtlist', 'qjtlist.html?type=QJT&tel=' + tel+'&cid='+id);
+		var href = this.getAttribute('data-mobile');
+		plus.device.dial(href);
 
-
-	});
-	//效果图
-	mui('#UserList').on('tap', '.addlist_xgt', function(e) {
-		//移除焦点,为了隐藏软键盘
-		//search.blur();//
-	var a = this.getAttribute('data-xgt');
-	//alert(a)
-		var id=a.split(';')[0];
-		var tel=a.split(';')[1];
-//		plus.device.dial(href);
-		var template = common.getTemplate('xgtlist', 'xgtlist.html?type=XGT&tel=' + tel+'&cid='+id);
 	});
 	mui('#UserList').on('tap', '.addlist_makemass', function(e) {
 		//移除焦点,为了隐藏软键盘
@@ -287,7 +260,7 @@ mui.plusReady(function() {
 		//	document.getElementById("sendMessage").addEventListener('tap', function() {
 		//		currentWebViewHide();
 
-		var template = common.getTemplate('page2', 'addfollow.html?id=' + href);
+		var template = common.getTemplate('addfollow_list', 'addfollow.html?id=' + href);
 		//	});
 	});
   
@@ -340,7 +313,13 @@ mui.plusReady(function() {
 //
 //			}
 		});
- 
+ 		mui('.mui-bar-nav').on('tap', '.btn_post_activ', function(e) {
+		 common.Verifauthority(r_add_custmoer, function(result) { //生日
+				 	if(result)
+				var template = common.getTemplate('add_custmer_apply', 'activity_apply.html?');
+					});//新闻发布权限
+		
+	});
 
 	});
 	/*
