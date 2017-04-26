@@ -374,7 +374,7 @@ function getDataApprove() {
 		}
 		//返回
 		common.backOfHideCurrentWebview(function() {
-			common.initMessage();
+			//common.initMessage();
 		});
 	});
 }(mui, document));

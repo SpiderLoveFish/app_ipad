@@ -548,15 +548,6 @@ header{
     -ms-flex: 1;
     -moz-box-flex: 1;
 }
-.flexItem2{
-    -webkit-box-flex: 1;
-    box-flex: 1;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    -moz-box-flex: 1;
-   /*float:left;
-    display:block; */
-}
 
 /*****************inputbox style    End*****************/
 /*****************newdetail style    End*****************/
@@ -575,7 +566,7 @@ header{
 	height: 104px;
 }
 .approve_list{
-	width: 20%;
+	width: 33.333333333%;
 	float: left;
 	text-align: center;
 }
@@ -598,7 +589,7 @@ header{
     border-right: 1px solid #eee;
     border-bottom: 1px solid #eee;
     background-size: 60px;
-    width: 20%;
+    width: 33.33%;
     display: inline-block;
     float: left;
     position: relative;
@@ -672,6 +663,27 @@ header{
 }
 .workstand_list6{
 	background:url(../images/ScApp/nav/aixinjuanzu.png) no-repeat center 28%;
+}
+.workstand_list7{
+	background:url(../images/ScApp/nav/Shenpi-02.png) no-repeat center 28%;
+}
+.workstand_list8{
+	background:url(../images/ScApp/nav/Shenpi-03.png) no-repeat center 28%;
+}
+.workstand_listT1{
+	background:url(../images/ScApp/nav/T1.png) no-repeat center 28%;
+}
+.workstand_listT2{
+	background:url(../images/ScApp/nav/T2.png) no-repeat center 28%;
+}
+.workstand_listT3{
+	background:url(../images/ScApp/nav/T3.png) no-repeat center 28%;
+}
+.workstand_listT4{
+	background:url(../images/ScApp/nav/T4.png) no-repeat center 28%;
+}
+.workstand_listT5{
+	background:url(../images/ScApp/nav/T5.png) no-repeat center 28%;
 }
 .approve_lists a{
 	position:relative;
@@ -1532,6 +1544,17 @@ select option {
 	font-size: 1.6rem;
 	color: #000;
 	padding-left: 20px;
+	 
+	
+	background-size: 20px;
+	line-height: 50px;
+}
+.eat_allowance_diolog1 p{
+	height:50px;
+	width: 100%;
+	font-size: 1.6rem;
+	color: #000;
+	padding-left: 20px;
 	border-top:1px solid #ddd;
 	background: url(../images/ScApp/icon/Option_01.png) no-repeat  95% center;
 	background-size: 20px;
@@ -2168,7 +2191,7 @@ select option {
 	box-shadow: none;
 }
 .address_list .addlist_stafflist {
-    height: 66px;
+    height: 56px;
     padding: 10px 25px 10px 15px;
 }
 .address_list .addlist_stafflist img {
@@ -2190,28 +2213,18 @@ select option {
     color: #888;
     font-size: 1.4rem;
 }
-.address_list .addlist_makemass,.addlist_makecall,.addlist_qjt,.addlist_xgt{
+.address_list .addlist_makemass,.addlist_makecall{
     display: inline-block;
     float: right;
-    height: 46px;
-    width: 54px;
+    height: 36px;
+    width: 44px;
     background: url(../images/ScApp/nav/appsWj.png) center no-repeat;
-    background-size: 36px 36px;
+    background-size: 26px 26px;
     /*//msg.png*/
-}
- .addlist_qjt {
-    background: url(../images/ScApp/nav/qjt.png) center no-repeat;
-    background-size: 36px 36px;
-    border-right: 1px solid #eee;
-}
- .addlist_xgt {
-    background: url(../images/ScApp/nav/xgt.png) center no-repeat;
-    background-size: 36px 36px;
-    border-right: 1px solid #eee;
 }
 .address_list .addlist_makecall {
     background: url(../images/ScApp/nav/call.png) center no-repeat;
-    background-size: 36px 36px;
+    background-size: 26px 26px;
     border-right: 1px solid #eee;
 }
 .address_list .mui-table-view-cell:after{

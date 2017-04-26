@@ -1,5 +1,6 @@
 var list = document.getElementById("list");
 var starIndex = 10;
+var str='';
 
 function getpullupRefresh() {
 	setTimeout(function() {
@@ -26,8 +27,8 @@ function getpullupRefresh() {
 				g.src = hostimg;//"images/loading.gif";
 				g.setAttribute('data-delay', hostimg);
 				c.innerHTML = e.ScoreName+e.ScoreDescribe;
-				h.innerHTML = e.NeedScore;
-				m.innerHTML = e.NeedScore;
+				h.innerHTML = '积分：'+e.NeedScore;
+				m.innerHTML = '剩余：'+e.RemainSum;
 				h.appendChild(m);
 				d.appendChild(g);
 				f.appendChild(d);
@@ -49,15 +50,17 @@ function getActivityList() {
 	//		endIndex: endIndex,
 	//};
 	var data = {
-		strwhere: '',
+		strwhere: str,
 		nowindex: starIndex,
 		url: ApiUrl
 	};
-	common.postApi('GetLastListScoreShop', data, function(response) {
-					c = document.createDocumentFragment();
-					
+	//alert(JSON.stringify(data))
+	common.postApi('GetLastListScoreShop', data, function(response) {	
+		c = document.createDocumentFragment();					
 		dataArray = eval(response.data);
-		//alert(JSON.stringify(response))
+		 //alert(dataArray.length)
+		 if(starIndex==10||dataArray.length)
+		list.innerHTML ='';
 		for(var i = 0; i < dataArray.length; i++) {
 			var obj = dataArray[i];
 			//if (selecttype == "getActivityList_All") {
@@ -74,7 +77,14 @@ function getActivityList() {
 
 	}, 'json');
 }
-
+ //添加上一个页面自定义事件监听
+            window.addEventListener('DIY_DATA', function(event) {               
+                str = event.detail.strwhere;
+                //alert(str);
+               starIndex=10;
+                getActivityList();
+            }); 
+            
 function ChangeDateFormat(jsondate) {
 	jsondate = jsondate.replace("/Date(", "").replace(")/", "");
 	if(jsondate.indexOf("+") > 0) {
@@ -159,6 +169,6 @@ mui.plusReady(function() {
 	});
 	//返回
 	common.backOfHideCurrentWebview(function() {
-		common.initMessage();
+		//common.initMessage();
 	});
 });
